@@ -1,0 +1,76 @@
+<UserControl x:Class="CrockeryFactory.Desktop.Views.ProductsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="320" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Grid.Column="0" Margin="0,0,16,10">
+            <TextBlock Text="Search" VerticalAlignment="Center" Margin="0,0,8,0" />
+            <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Delay=250}"
+                     Padding="6,4" />
+        </DockPanel>
+
+        <DataGrid Grid.Row="1" Grid.Column="0" Margin="0,0,16,0"
+                  ItemsSource="{Binding Products}"
+                  SelectedItem="{Binding SelectedProduct}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="SKU"      Binding="{Binding Sku}"          Width="110" />
+                <DataGridTextColumn Header="Name"     Binding="{Binding Name}"         Width="*" />
+                <DataGridTextColumn Header="Body"     Binding="{Binding ClayBody}"     Width="100" />
+                <DataGridTextColumn Header="Capacity" Binding="{Binding CapacityMl, StringFormat={}{0} ml}" Width="90" />
+                <DataGridTextColumn Header="Price"    Binding="{Binding UnitPrice, StringFormat=N2}"        Width="80" />
+                <DataGridTextColumn Header="In stock" Binding="{Binding StockQuantity, StringFormat=N0}"    Width="80" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+            <TextBlock Text="Details" FontSize="15" Margin="0,0,0,4" />
+
+            <TextBlock Text="SKU" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.Sku, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <TextBlock Text="Name" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.Name, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <TextBlock Text="Clay body" Style="{StaticResource FieldLabel}" />
+            <ComboBox ItemsSource="{Binding ClayBodies}"
+                      SelectedItem="{Binding SelectedProduct.ClayBody}" Padding="6,4" />
+
+            <TextBlock Text="Capacity (ml)" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.CapacityMl, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <TextBlock Text="Glaze colour" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.GlazeColour, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <TextBlock Text="Unit price" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.UnitPrice, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <TextBlock Text="In stock" Style="{StaticResource FieldLabel}" />
+            <TextBox Text="{Binding SelectedProduct.StockQuantity, UpdateSourceTrigger=PropertyChanged}" Padding="6,4" />
+
+            <CheckBox Content="Discontinued"
+                      IsChecked="{Binding SelectedProduct.IsDiscontinued}" Margin="0,14,0,0" />
+        </StackPanel>
+
+        <DockPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,14,0,0">
+            <TextBlock DockPanel.Dock="Right" Text="{Binding StatusMessage}"
+                       VerticalAlignment="Center" Foreground="#5A5A5A" />
+            <StackPanel Orientation="Horizontal">
+                <Button Content="New"     Command="{Binding NewCommand}" />
+                <Button Content="Save"    Command="{Binding SaveCommand}" />
+                <Button Content="Delete"  Command="{Binding DeleteCommand}" />
+                <Button Content="Refresh" Command="{Binding RefreshCommand}" />
+            </StackPanel>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

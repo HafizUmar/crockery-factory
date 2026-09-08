@@ -1,0 +1,38 @@
+<UserControl x:Class="CrockeryFactory.Desktop.Views.ProductionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0"
+                  ItemsSource="{Binding Batches}"
+                  SelectedItem="{Binding SelectedBatch}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Batch"     Binding="{Binding BatchCode}"                            Width="120" />
+                <DataGridTextColumn Header="Product"   Binding="{Binding Product.Name}"                         Width="*" />
+                <DataGridTextColumn Header="Stage"     Binding="{Binding Status}"                               Width="110" />
+                <DataGridTextColumn Header="Kiln"      Binding="{Binding KilnId}"                               Width="80" />
+                <DataGridTextColumn Header="Planned"   Binding="{Binding QuantityPlanned, StringFormat=N0}"     Width="80" />
+                <DataGridTextColumn Header="Good"      Binding="{Binding QuantityGood, StringFormat=N0}"        Width="80" />
+                <DataGridTextColumn Header="Scrapped"  Binding="{Binding QuantityScrapped, StringFormat=N0}"    Width="80" />
+                <DataGridTextColumn Header="Scrap %"   Binding="{Binding ScrapRate, StringFormat=P1}"           Width="80" />
+                <DataGridTextColumn Header="Started"   Binding="{Binding StartedOn, StringFormat=d}"            Width="100" />
+                <DataGridTextColumn Header="Completed" Binding="{Binding CompletedOn, StringFormat=d}"          Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DockPanel Grid.Row="1" Margin="0,14,0,0">
+            <TextBlock DockPanel.Dock="Right" Text="{Binding StatusMessage}"
+                       VerticalAlignment="Center" Foreground="#5A5A5A" />
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Advance stage" Command="{Binding AdvanceCommand}" MinWidth="120" />
+                <Button Content="Refresh"       Command="{Binding RefreshCommand}" />
+            </StackPanel>
+        </DockPanel>
+
+    </Grid>
+</UserControl>
