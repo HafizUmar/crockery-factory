@@ -16,10 +16,10 @@
         </Border>
 
         <TabControl Margin="16" Padding="0">
-            <TabItem Header="Products">
+            <TabItem Header="Products" Background="#1F6FEB">
                 <views:ProductsView DataContext="{Binding Products}" />
             </TabItem>
-            <TabItem Header="Production">
+            <TabItem Header="Production" Background="#C0392B">
                 <views:ProductionView DataContext="{Binding Production}" />
             </TabItem>
         </TabControl>
